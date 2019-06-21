@@ -7,6 +7,10 @@ namespace WebUI.Models.Games
 {
     public class GamesListViewModel
     {
-
+        public GamesListViewModel()
+        {
+            Games = new List<Game>();
+        }
+        public List<Game> Games { get; set; } 
     }
 }

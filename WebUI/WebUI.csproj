@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="Models\Games\Event.cs" />
     <Compile Include="Models\Games\Game.cs" />
+    <Compile Include="Models\Games\ViewModels\GameDetailViewModel.cs" />
     <Compile Include="Models\Games\ViewModels\GamesListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
