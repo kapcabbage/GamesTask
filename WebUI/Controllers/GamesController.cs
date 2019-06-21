@@ -28,7 +28,7 @@ namespace WebUI.Controllers
                 vm.Games = obj["data"].ToObject<List<Game>>();
             }
 
-            return View();
+            return View(vm);
         }
     }
 }
