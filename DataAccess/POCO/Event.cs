@@ -11,6 +11,7 @@ namespace DataAccess.POCO
         public DateTime TimeStamp { get; set; }
         public string Source { get; set; }
 
+        public virtual EventType EventType { get; set; }
         public virtual Game Game { get; set; }
     }
 }

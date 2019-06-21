@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace WebUI.Models.Games
+namespace BusinessLogic.Dtos
 {
-    public class Game
+    public class GameDto
     {
         public int GameId { get; set; }
         public string Name { get; set; }

@@ -26,9 +26,9 @@ namespace DataAccess.Repositories
                 .Select(x=> new Event {
                     EventId = x.EventId,
                     GameId = x.GameId,
-                    EventTypeId = x.EventTypeId,
                     TimeStamp = x.TimeStamp,
-                    Source = x.Source
+                    Source = x.Source,
+                    EventType = x.EventType
             })
                 .OrderBy(x=>x.TimeStamp).Take(10).ToList();
         }

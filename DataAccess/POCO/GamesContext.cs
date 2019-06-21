@@ -22,7 +22,7 @@ namespace DataAccess.POCO
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+        
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,6 +32,19 @@ namespace DataAccess.POCO
             modelBuilder.Entity<Event>(entity =>
             {
                 entity.ToTable("Event");
+
+                entity.Property(e => e.Source)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TimeStamp).HasColumnType("datetime");
+
+                entity.HasOne(d => d.EventType)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.EventTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EventTypeId");
 
                 entity.HasOne(d => d.Game)
                     .WithMany(p => p.Events)

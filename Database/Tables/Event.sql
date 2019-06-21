@@ -7,5 +7,6 @@
 	[Source] VARCHAR(20) NOT NULL,
 
 	CONSTRAINT [PK_EventId] PRIMARY KEY ([EventId]),
-	CONSTRAINT [FK_GameId] FOREIGN KEY ([GameId]) REFERENCES [dbo].[Games]([GameId])
+	CONSTRAINT [FK_GameId] FOREIGN KEY ([GameId]) REFERENCES [dbo].[Games]([GameId]),
+	CONSTRAINT [FK_EventTypeId] FOREIGN KEY ([EventTypeId]) REFERENCES [dbo].[EventTypes]([EventTypeId])
 )

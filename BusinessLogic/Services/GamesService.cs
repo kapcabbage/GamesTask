@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper;
+using BusinessLogic.Dtos;
 using BusinessLogic.Enums;
 using BusinessLogic.Interfaces;
 using DataAccess.Common;
@@ -14,20 +16,24 @@ namespace BusinessLogic.Services
         private readonly IGamesContext _context;
         private readonly IGamesRepository _gameRepo;
         private readonly IEventsRepository _eventRepo;
+        private readonly IMapper _mapper;
 
-        public GamesService(IGamesContext context)
+        public GamesService(IGamesContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
             _gameRepo = new GameRepository(context);
             _eventRepo = new EventRepository(context);
 
 
         }
 
-        public OperationResult<IEnumerable<Game>> GetAllGames()
+        public OperationResult<IEnumerable<GameDto>> GetAllGames()
         {
-            var result = new OperationResult<IEnumerable<Game>>();
-            result.Data = _gameRepo.GetAll();
+            var result = new OperationResult<IEnumerable<GameDto>>();
+            var resultList = _gameRepo.GetAll();
+
+            result.Data = _mapper.Map<List<GameDto>>(resultList);
             result.Status = eOperationStatus.Success;
             return result;
         }
@@ -160,10 +166,14 @@ namespace BusinessLogic.Services
             return result;
         }
 
-        public OperationResult<IEnumerable<Event>> GetEvents(int gameId)
+        public OperationResult<IEnumerable<EventDto>> GetEvents(int gameId)
         {
-            var result = new OperationResult<IEnumerable<Event>>();
-            result.Data = _eventRepo.GetTop(gameId);
+            var result = new OperationResult<IEnumerable<EventDto>>();
+            var resultList = _eventRepo.GetTop(gameId);
+            var eventList = new List<EventDto>();
+            eventList = _mapper.Map<List<EventDto>>(resultList);
+
+            result.Data = eventList;
             result.Status = eOperationStatus.Success;
             return result;
         }

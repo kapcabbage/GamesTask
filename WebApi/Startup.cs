@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using DataAccess.Interfaces;
@@ -34,8 +35,18 @@ namespace WebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<GamesContext>(options =>
                                                        options.UseSqlServer(Configuration.GetConnectionString("GamesDatabase")));
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
             services.AddTransient<IGamesContext, GamesContext>();
             services.AddTransient<IGamesService, GamesService>();
+            
 
         }
 
