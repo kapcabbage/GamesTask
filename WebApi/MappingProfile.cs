@@ -9,7 +9,8 @@ namespace WebApi
         public MappingProfile()
         {
             CreateMap<Game, GameDto>();
-            CreateMap<Event, EventDto>();
+            CreateMap<Event, EventDto>()
+                .ForMember(dsc=>dsc.EventType, opt => opt.MapFrom(src=>src.EventType.Name));
         }
     }
 }
