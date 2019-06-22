@@ -21,9 +21,9 @@ namespace WebApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult Get(int? limit = null)
         {
-            var serviceResult = _service.GetAllGames();
+            var serviceResult = _service.GetAllGames(limit);
             if (serviceResult.Status == eOperationStatus.Success)
             {
                 return Ok(serviceResult);

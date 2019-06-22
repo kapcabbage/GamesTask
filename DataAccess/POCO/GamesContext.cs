@@ -45,12 +45,6 @@ namespace DataAccess.POCO
                     .HasForeignKey(d => d.EventTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EventTypeId");
-
-                entity.HasOne(d => d.Game)
-                    .WithMany(p => p.Events)
-                    .HasForeignKey(d => d.GameId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_GameId");
             });
 
             modelBuilder.Entity<EventType>(entity =>

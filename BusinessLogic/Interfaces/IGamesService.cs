@@ -7,7 +7,7 @@ namespace BusinessLogic.Interfaces
 {
     public interface IGamesService
     {
-        OperationResult<IEnumerable<GameDto>> GetAllGames();
+        OperationResult<IEnumerable<GameDto>> GetAllGames(int? limit);
         OperationResult<Game> GetGame(int id);
         OperationResult<int> AddGame(Game customer);
         OperationResult<int> UpdateGame(Game customer);

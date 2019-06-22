@@ -28,10 +28,10 @@ namespace BusinessLogic.Services
 
         }
 
-        public OperationResult<IEnumerable<GameDto>> GetAllGames()
+        public OperationResult<IEnumerable<GameDto>> GetAllGames(int? limit)
         {
             var result = new OperationResult<IEnumerable<GameDto>>();
-            var resultList = _gameRepo.GetAll();
+            var resultList = _gameRepo.GetAll(limit);
 
             result.Data = _mapper.Map<List<GameDto>>(resultList);
             result.Status = eOperationStatus.Success;
@@ -73,8 +73,6 @@ namespace BusinessLogic.Services
             var result = new OperationResult<int>();
             try
             {
-              
- 
                 var toUpdate = _gameRepo.Get(Game.GameId);
                 toUpdate.Name = Game.Name;
                 toUpdate.MinPlayers = Game.MinPlayers;
@@ -135,6 +133,11 @@ namespace BusinessLogic.Services
                 var Game = _gameRepo.Get(id);
                 if (Game != null)
                 {
+                    var events = _eventRepo.GetAll(id);
+                    foreach(var eventEntity in events)
+                    {
+                        _eventRepo.Delete(eventEntity);
+                    }
                     _gameRepo.Delete(Game);
                     var saveResult = _context.SaveChanges();
                     if (saveResult > 0)

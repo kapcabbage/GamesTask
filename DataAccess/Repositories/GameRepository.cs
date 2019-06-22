@@ -17,21 +17,19 @@ namespace DataAccess.Repositories
 
         #region Implementation of ICustomerRepository
 
-        public IEnumerable<Game> GetAll()
+        public IEnumerable<Game> GetAll(int? limit)
         {
-            return _context.Games.ToList();
+            var query = _context.Games.AsQueryable();
+            if(limit != null)
+            {
+                query.Take((int)limit);
+            }
+            return query.ToList();
         }
 
         public Game Get(int id)
         {
-            return _context.Games.Where(x=>x.GameId == id).Select(x=>new Game {
-                GameId = x.GameId,
-                Name = x.Name,
-                Description = x.Description,
-                MaxPlayers = x.MaxPlayers,
-                MinPlayers = x.MinPlayers,
-                RecommendedAge = x.RecommendedAge
-            }).FirstOrDefault();
+            return _context.Games.FirstOrDefault(x => x.GameId == id);
         }
 
         public void Add(Game entity)

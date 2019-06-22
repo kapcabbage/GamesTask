@@ -19,6 +19,18 @@ namespace DataAccess.Repositories
             _context.Events.Add(entity);
         }
 
+        public void Delete(Event entity)
+        {
+            _context.Events.Remove(entity);
+        }
+
+        public IEnumerable<Event> GetAll(int gameId)
+        {
+            return _context.Events
+                .Where(x => x.GameId == gameId)
+                .ToList();   
+        }
+
         public IEnumerable<Event> GetTop(int gameId)
         {
             return _context.Events

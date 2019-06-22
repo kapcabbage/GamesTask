@@ -7,7 +7,7 @@ namespace DataAccess.POCO
     {
         public Game()
         {
-            Events = new HashSet<Event>();
+            
         }
 
         public int GameId { get; set; }
@@ -17,6 +17,5 @@ namespace DataAccess.POCO
         public int MaxPlayers { get; set; }
         public int RecommendedAge { get; set; }
 
-        public virtual ICollection<Event> Events { get; set; }
     }
 }

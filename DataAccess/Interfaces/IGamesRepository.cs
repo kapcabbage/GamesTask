@@ -7,8 +7,7 @@ namespace DataAccess.Interfaces
 {
     public interface IGamesRepository : IRepository<Game>
     {
-        IEnumerable<Game> GetAll();
+        IEnumerable<Game> GetAll(int? limit);
         Game Get(int id);
-        void Delete(Game entity);
     }
 }
