@@ -12,5 +12,6 @@ namespace WebUI.Models.Games
             Games = new List<Game>();
         }
         public List<Game> Games { get; set; } 
+        public string SearchName { get; set; }
     }
 }

@@ -1,0 +1,52 @@
+﻿@model WebUI.Models.Games.ViewModels.GameDetailViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title" id="myModalLabel>Details</h4>
+</div>
+<div class="modal-body">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.RecommendedAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.RecommendedAge)
+        </dd>
+        <dt>
+            Players
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.MinPlayers) - @Html.DisplayFor(model => model.Game.MaxPlayers)
+        </dd>
+    </dl>
+    <div class="content">
+        @foreach (var eventEntity in Model.Events)
+        {
+            <div class="row-entity">
+                <p>@eventEntity.EventType</p>
+                <p>@eventEntity.TimeStamp</p>
+                <p>@eventEntity.Source</p>
+            </div>
+        }
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

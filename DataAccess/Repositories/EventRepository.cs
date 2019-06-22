@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
                     Source = x.Source,
                     EventType = x.EventType
             })
-                .OrderBy(x=>x.TimeStamp).Take(10).ToList();
+                .OrderByDescending(x=>x.TimeStamp).Take(10).ToList();
         }
     }
 }

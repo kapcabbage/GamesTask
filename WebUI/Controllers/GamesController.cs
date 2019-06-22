@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebUI.Models.Games;
+using WebUI.Models.Games.ViewModels;
 
 namespace WebUI.Controllers
 {
@@ -29,6 +30,79 @@ namespace WebUI.Controllers
             }
 
             return View(vm);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var vm = new GameDetailViewModel();
+
+            var client = new RestClient(ConfigurationManager.AppSettings["WebApiEndpoint"]);
+            var request = new RestRequest(ConfigurationManager.AppSettings["WebApiEndpoint"]+"/{id}", Method.GET);
+            request.AddUrlSegment("id", id);
+            request.AddParameter("source", "App");
+
+            IRestResponse response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                var clientEvents = new RestClient(ConfigurationManager.AppSettings["WebApiEndpoint"]);
+                var requestEvents = new RestRequest(ConfigurationManager.AppSettings["WebApiEndpoint"] + "/{id}/events", Method.GET);
+                requestEvents.AddUrlSegment("id", id);
+                var obj = JObject.Parse(response.Content);
+
+                IRestResponse responseEvents = clientEvents.Execute(requestEvents);
+                vm.Game = obj["data"].ToObject<Game>();
+
+                if (responseEvents.IsSuccessful)
+                {
+                    var objEvents = JObject.Parse(responseEvents.Content);
+                    vm.Events = objEvents["data"].ToObject<List<Event>>();
+                }
+                
+            }
+
+            return PartialView("GameDetail",vm);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var vm = new GameDetailViewModel();
+
+            var client = new RestClient(ConfigurationManager.AppSettings["WebApiEndpoint"]);
+            var request = new RestRequest(ConfigurationManager.AppSettings["WebApiEndpoint"] + "/{id}", Method.GET);
+            request.AddUrlSegment("id", id);
+            request.AddParameter("source", "App");
+
+            IRestResponse response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            { 
+                var obj = JObject.Parse(response.Content);            
+                vm.Game = obj["data"].ToObject<Game>();
+            }
+
+            return PartialView("GameDetail", vm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(GameDetailViewModel model)
+        {
+            //var vm = new GameDetailViewModel();
+
+            //var client = new RestClient(ConfigurationManager.AppSettings["WebApiEndpoint"]);
+            //var request = new RestRequest(ConfigurationManager.AppSettings["WebApiEndpoint"] + "/{id}", Method.GET);
+            //request.AddUrlSegment("id", id);
+            //request.AddParameter("source", "App");
+
+            //IRestResponse response = client.Execute(request);
+
+            //if (response.IsSuccessful)
+            //{
+            //    var obj = JObject.Parse(response.Content);
+            //    vm.Game = obj["data"].ToObject<Game>();
+            //}
+
+            return RedirectToAction("Index");
         }
     }
 }

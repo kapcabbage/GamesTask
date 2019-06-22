@@ -3,16 +3,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/JS/Games/main.js"></script>
 
-<h2>List of Books and list of Customers together</h2>
-
-<h4>List of Books</h4>
-<ul>
+<h2>List of Games</h2>
+<div class="content">
     @foreach (var game in Model.Games)
     {
-        <li>
-            
-        </li>
+        <div class="row-entity" data-id="@game.GameId">
+            <p>@game.Name</p>
+            <div class="button-group">
+                <button type="button" class="btn btn-primary detail">Details</button>
+                <button type="button" class="btn btn-primary">Edit</button>
+                <button type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
     }
-</ul>
+</div>
+
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
 
